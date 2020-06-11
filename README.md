@@ -1,4 +1,4 @@
-# Piscu FTK Hand Simulator by Marcus Patel
+# Piscu FTK Hand Simulator by Marcus Patel and Gabriel Netz
 
 The program uses a Decklist as an input and simulates X number of 5 card hands.
 
