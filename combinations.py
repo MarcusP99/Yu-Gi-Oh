@@ -13,8 +13,20 @@ special_summons = ["Exploderokket Dragon", "Monster Reborn", "Noctovision Dragon
 # List of non dragon normal summons
 normal_summons = ["Effect Veiler","Ash Blossom and Joyous Spring"]
 
-# Deck contains 31 Monsters, so we're assuming Chaos Space and 1-4-1 are 1 Card FTKs, will adjust later
-one_card_ftk = ["Black Metal Dragon", "Chaos Space", "Starliege Seyfert", "One for One"]
+
+
+#True 1 card ftks
+one_card_ftk = ["Black Metal Dragon", "Starliege Seyfert"]
+
+#Conditional 1 card ftks
+cond_one_card_ftk = ["One For One","Chaos Space"]
+
+# List of Monsters so 1F1 and Chaos Space Discard Check
+monsters = handtraps + lv4_dragons + normal_summons + special_summons
+monsters.remove("Dragon Ravine")
+monsters.remove("Quick Launch")
+print(monsters)
+
 
 # List specific 2 cards that FTK that we haven't included
 two_card_ftk = [["Dragon Ravine", "White Dragon Wyverburster"],["Red Rose Dragon", "White Rose Dragon"]]
@@ -36,6 +48,14 @@ def no_hts(hand):
         if one_card_ftk[i] in hand:
             win = True
             break
+
+    # FTK with Conditional Card
+        for i in range(0, len(one_card_ftk)):
+            for j in range(0,len(monsters)):
+                if (cond_one_card_ftk[i] in hand) & (monsters[j] in hand):
+                    win = True
+                    break
+
 
     # FTK with an extender and a dragon normal summon
     if not win:
@@ -66,7 +86,7 @@ def no_hts(hand):
                 break
         special_summons.append("Quick Launch")
 
-  # Quick Launch + Normal Summon of anything
+    # Quick Launch + Normal Summon of anything
     if (not win) & ("Quick Launch" in hand):
       for i in range(0,len(normal_summons)):
         if normal_summons[i] in hand:

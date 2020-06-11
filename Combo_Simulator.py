@@ -36,3 +36,7 @@ def combo(deck, n):
     print("FTK Success Rate through no Handtraps: " + str(no_hts_ratio) + "%\n")
     print("FTK Success Rate through 1 discardable Handtrap: " + str(one_cbtg_ratio) + "%\n")
 
+
+def go_second(deck,n):
+    # Placeholder for now
+    return True
