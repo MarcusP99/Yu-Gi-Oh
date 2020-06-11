@@ -7,6 +7,6 @@ def import_deck(filename):
 
 
 # What decklist we want to import and how many hands we want to simulate
-#FTK = import_deck("FTK.txt")
-FTK = import_deck("FTKnoHT.txt")
+FTK = import_deck("FTK.txt")
+#FTK = import_deck("FTKnoHT.txt")
 combo(FTK, 10000)
