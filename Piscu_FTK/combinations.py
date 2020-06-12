@@ -5,16 +5,19 @@ from sets import *
 def ftk(hand):
     win = False
     nibiru = False
+    seyfert = in_hand(hand, "Starliege Seyfert")
+
+
 
     # Checks if drawn handtraps or called by the grave
-    cbtg = called_by(hand)
+    cbtg = in_hand(hand, "Called by the Grave")
     open_ht = hts(hand)
 
     # FTK with One card
     for i in one_card_ftk:
         if i in hand:
             hand.remove(i)
-            nibiru = extending(hand)
+            nibiru = extending(hand, seyfert)
             win = True
             break
 
@@ -26,7 +29,7 @@ def ftk(hand):
 
     # FTK with an extender and a dragon normal summon
     if not win:
-        for i in lv4_dragons:
+        for i in normal_summon_dragons:
             for j in special_summons:
                 if (i in hand) & (j in hand):
                     win = True
@@ -42,7 +45,7 @@ def ftk(hand):
                         hand.remove(i)
                         hand.remove(j)
                         if j != "World Legacy Guardragon":
-                            nibiru = extending(hand)
+                            nibiru = extending(hand, seyfert)
                         break
 
     # FTK with Dragon Summonable Extender and another Extender
@@ -54,19 +57,11 @@ def ftk(hand):
                 for j in special_summons:
                     if j in temp_hand:
                         win = True
+                        hand.remove(i)
+                        hand.remove(j)
                         if j != "World Legacy Guardragon":
-                            nibiru = extending(hand)
+                            nibiru = extending(hand, seyfert)
                         break
-
-    # FTK with Quick Launch and another Extender
-    if (not win) & ("Quick Launch" in hand):
-        hand.remove("Quick Launch")  # So we don't count the same quick launch twice
-        for i in special_summons:
-            if i in hand:
-                win = True
-                nibiru = extending(hand)
-                break
-        hand.append("Quick Launch")
 
     # Dragon Summonable Extender + Normal Summon of anything
     if not win:
@@ -74,7 +69,9 @@ def ftk(hand):
             for j in normal_summons:
                 if (i in hand) & (j in hand):
                     win = True
-                    nibiru = extending(hand)
+                    hand.remove(i)
+                    hand.remove(j)
+                    nibiru = extending(hand, seyfert)
                     break
 
     # FTK with specific two cards
@@ -82,7 +79,9 @@ def ftk(hand):
         for i in two_card_ftk:
             if (i[0] in hand) & (i[1] in hand):
                 win = True
-                nibiru = extending(hand)
+                hand.remove(i[0])
+                hand.remove(i[1])
+                nibiru = extending(hand, seyfert)
                 break
 
     # FTK with specific three cards
@@ -90,7 +89,10 @@ def ftk(hand):
         for i in three_card_ftk:
             if (i[0] in hand) & (i[1] in hand) & (i[2] in hand):
                 win = True
-                nibiru = extending(hand)
+                hand.remove(i[0])
+                hand.remove(i[1])
+                hand.remove(i[2])
+                nibiru = extending(hand, seyfert)
                 break
 
     win_nibiru = win & nibiru

@@ -3,7 +3,7 @@ handtraps = ["Nibiru, the Primal Being", "Effect Veiler", "Fantastical Dragon Ph
              "Ghost Mourner & Moonlit Chill", "Ash Blossom & Joyous Spring", "Infinite Impermanence"]
 
 # List of Dragons that are cannot FTK with just itself
-lv4_dragons = ["Dragon Buster Destruction Sword", "Omni Dragon Brotaur", "Red Rose Dragon", "Rokket Tracer",
+normal_summon_dragons = ["Dragon Buster Destruction Sword", "Omni Dragon Brotaur", "Red Rose Dragon", "Rokket Tracer",
                "White Rose Dragon", "Dragunity Phalanx"]
 
 # List of cards that can be special summoned
@@ -34,19 +34,45 @@ vs_hts = ["Called by the Grave", "Red Reboot"]
 # One card cards that play through Nibiru
 vs_nibiru = ["World Legacy Guardragon", "One for One"]
 
+# List of Lv4 lv4_dragon
+actual_lv4_dragons = ["White Dragon Wyverburster","Rokket Tracer","Starliege Seyfert","Black Dragon Collapserpent", "White Rose Dragon","Supreme King Dragon Darkwurm" ]
+
+tracer_in_hand = generate_dragon_specials + ["Rokket Tracer"]
+
+with_abso = ["White Dragon Wyverburster", "Quick Launch","Black Dragon Collapserpent", "Monster Reborn"]
+
+once_per_turn = ["Dragon Shrine", "World Legacy Guardragon", "Chaos Space", "Noctovision Dragon"]
+
 
 # If we already have FTK, we check if we can extend with any unused cards
-def extending(hand):
-    return any(i in vs_nibiru for i in hand)
+def extending(hand, seyfert):
+    extend = False
+
+    if any(i in vs_nibiru for i in hand):
+        extend = True
+
+    if "Quick Launch" in hand:
+        hand.remove("Quick Launch")
+        if "Quick Launch" in hand:
+            extend = True
+
+    if seyfert & any(i in tracer_in_hand for i in hand) & any(i in actual_lv4_dragons for i in hand):
+        extend = True
+
+    if seyfert & ("Absorouter Dragon" in hand) & any(i in with_abso for i in hand):
+        extend = True
+
+    return extend
 
 
 # Checks if we have drawn called by the grave
-def called_by(hand):
-    return "Called by the Grave" in hand
+def in_hand(hand, card):
+    return card in hand
 
 
 def hts(hand):
     return any(i in handtraps for i in hand)
+
 
 # Remove cards in hands if they FTK
 def checklists(list, hand):
