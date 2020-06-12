@@ -23,7 +23,7 @@ def combo(deck, n):
     for i in range(0, n):
         test_hand = draw(deck, 5)
 
-        results = simulations(test_hand)
+        results = ftk(test_hand)
         if results[0]:
             success_no_hts += 1
 
@@ -42,7 +42,7 @@ def combo(deck, n):
     open_ht_ratio = round(opened_ht / n * 100, 2)
 
     print("FTK Success Rate through no Handtraps: " + str(no_hts_ratio) + "%")
-    print("FTK Success Rate with called by the grave in hand: " + str(one_cbtg_ratio) + "%")
+    print("FTK Success Rate through 1 discardable Handtrap: " + str(one_cbtg_ratio) + "%")
     print("FTK Success Rate through Nibiru: " + str(nibiru_ratio) + "%")
     print("Hands with atleast 1 handtrap: " + str(open_ht_ratio) + "%\n")
 

@@ -40,3 +40,9 @@ Marcus - 11/06:
 -Improved for loop for "one_card_ftk"
 -Successful FTK through Nibiru in situations where you have unused WL Guardragon, "extending" function needs to work done. Now returns nibiru probability.
 -Included hands that contain a handtrap
+
+
+Marcus - 12/06:
+-Moved sets of cards into a different files and changed names of some functions for readability
+-Added a test file
+-I think your dragon summonable extender and extender recognises 2 dragon shrines as an ftk

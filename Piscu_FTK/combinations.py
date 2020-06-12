@@ -2,7 +2,7 @@ from sets import *
 
 
 # Verifies if hand can FTK successfully
-def simulations(hand):
+def ftk(hand):
     win = False
     nibiru = False
 
@@ -68,13 +68,14 @@ def simulations(hand):
                 break
         hand.append("Quick Launch")
 
-    # Quick Launch + Normal Summon of anything
-    if (not win) & ("Quick Launch" in hand):
-        for i in normal_summons:
-            if i in hand:
-                win = True
-                nibiru = extending(hand)
-                break
+    # Dragon Summonable Extender + Normal Summon of anything
+    if not win:
+        for i in generate_dragon_specials:
+            for j in normal_summons:
+                if (i in hand) & (j in hand):
+                    win = True
+                    nibiru = extending(hand)
+                    break
 
     # FTK with specific two cards
     if not win:
