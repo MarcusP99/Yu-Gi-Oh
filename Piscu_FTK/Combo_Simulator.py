@@ -45,3 +45,8 @@ def combo(deck, n):
     print("FTK Success Rate with called by the grave in hand: " + str(one_cbtg_ratio) + "%")
     print("FTK Success Rate through Nibiru: " + str(nibiru_ratio) + "%")
     print("Hands with atleast 1 handtrap: " + str(open_ht_ratio) + "%\n")
+
+
+def go_second(deck,n):
+    # Placeholder for now
+    return True
