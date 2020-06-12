@@ -8,6 +8,7 @@ Boot Sector Launch
 Called by the Grave
 Called by the Grave
 Called by the Grave
+Chaos Dragon Levianeer
 Chaos Space
 Chaos Space
 Chaos Space
@@ -16,15 +17,9 @@ Dragon Ravine
 Dragunity Divine Lance
 Dragunity Phalanx
 Earthbound Immortal Aslla piscu
-Effect Veiler
-Effect Veiler
-Effect Veiler
 Exploderokket Dragon
 Exploderokket Dragon
 Monster Reborn
-Nibiru, the Primal Being
-Nibiru, the Primal Being
-Nibiru, the Primal Being
 Noctovision Dragon
 Noctovision Dragon
 Noctovision Dragon
@@ -46,5 +41,3 @@ White Rose Dragon
 World Legacy Guardragon
 World Legacy Guardragon
 World Legacy Guardragon
-Red Reboot
-Chaos Dragon Levianner
