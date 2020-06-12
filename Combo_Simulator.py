@@ -21,7 +21,7 @@ def combo(deck, n):
 
     for i in range(0, n):
         test_hand = draw(deck, 5)
-        print(test_hand)
+        #print(test_hand)
 
         results = no_hts(test_hand)
         if results[0]:
