@@ -4,15 +4,15 @@ handtraps = ["Nibiru, the Primal Being", "Effect Veiler", "Fantastical Dragon Ph
 
 # List of Dragons that are cannot FTK with just itself
 normal_summon_dragons = ["Dragon Buster Destruction Sword", "Omni Dragon Brotaur", "Red Rose Dragon", "Rokket Tracer",
-               "White Rose Dragon", "Dragunity Phalanx"]
+                         "White Rose Dragon", "Dragunity Phalanx"]
 
 # List of cards that can be special summoned
-special_summons = ["Exploderokket Dragon", "Monster Reborn", "Noctovision Dragon",
+special_summons = ["Noctovision Dragon", "Exploderokket Dragon", "Monster Reborn",
                    "Rokket Tracer", "Quick Launch", "World Legacy Guardragon", "Red-Eyes Darkness Metal Dragon",
                    "White Dragon Wyverburster", "White Rose Dragon", "Dragon Ravine", "Dragon Shrine", "Foolish Burial"]
 
 # List of non dragon normal summons
-normal_summons = ["Effect Veiler", "Ash Blossom and Joyous Spring"]
+normal_summons = ["Effect Veiler", "Ash Blossom & Joyous Springs"]
 
 generate_dragon_specials = ["Quick Launch", "Dragon Shrine", "Foolish Burial", "Dragon Ravine"]
 
@@ -35,14 +35,20 @@ vs_hts = ["Called by the Grave", "Red Reboot"]
 vs_nibiru = ["World Legacy Guardragon", "One for One"]
 
 # List of Lv4 lv4_dragon
-actual_lv4_dragons = ["White Dragon Wyverburster","Rokket Tracer","Starliege Seyfert","Black Dragon Collapserpent", "White Rose Dragon","Supreme King Dragon Darkwurm" ]
+actual_lv4_dragons = ["White Dragon Wyverburster", "Rokket Tracer", "Starliege Seyfert", "Black Dragon Collapserpent",
+                      "White Rose Dragon", "Supreme King Dragon Darkwurm", "Chaos Space"]
 
 tracer_in_hand = generate_dragon_specials + ["Rokket Tracer"]
 
-with_abso = ["White Dragon Wyverburster", "Quick Launch","Black Dragon Collapserpent", "Monster Reborn"]
+with_abso = ["White Dragon Wyverburster", "Quick Launch", "Black Dragon Collapserpent", "Monster Reborn", "Chaos Space",
+             "White Rose Dragon"]
 
-once_per_turn = ["Dragon Shrine", "World Legacy Guardragon", "Chaos Space", "Noctovision Dragon"]
+mini_chaos = ["White Dragon Wyverburster", "Chaos Space", "Black Dragon Collapserpent"]
 
+once_per_turn = [["Dragon Shrine", False], ["World Legacy Guardragon", False],
+                 ["Noctovision Dragon", False]]
+
+dragon_extenders = ["Quick Launch", "Monster Reborn", "White Rose Dragon"]
 
 # If we already have FTK, we check if we can extend with any unused cards
 def extending(hand, seyfert):
@@ -62,6 +68,9 @@ def extending(hand, seyfert):
     if seyfert & ("Absorouter Dragon" in hand) & any(i in with_abso for i in hand):
         extend = True
 
+    if ("Dragon Ravine" in hand or "Dragunity Divine Lance" in hand) & any(i in dragon_extenders for i in hand):
+        extend = True
+
     return extend
 
 
@@ -72,6 +81,21 @@ def in_hand(hand, card):
 
 def hts(hand):
     return any(i in handtraps for i in hand)
+
+
+def used_opt(hand, card):
+    used = False
+    for i in once_per_turn:
+        if card in i[0]:
+            if i[1]:
+                used = True
+            else:
+                i[1] = True
+    return used
+
+
+def reset_opt(opt):
+    return [["Dragon Shrine", False], ["World Legacy Guardragon", False], ["Noctovision Dragon", False]]
 
 
 # Remove cards in hands if they FTK

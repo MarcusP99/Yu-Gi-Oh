@@ -14,5 +14,6 @@ def main(deck_txt, n):
     combo(deck, n)
 
 
-main("FTK.txt", 200000)
-main("FTK_no_hts.txt", 200000)
+main("FTK.txt", 50000)
+main("FTK_no_hts.txt", 50000)
+main("FTK_56.txt", 50000)

@@ -46,3 +46,6 @@ Marcus - 12/06:
 -Moved sets of cards into a different files and changed names of some functions for readability
 -Added a test file
 -I think your dragon summonable extender and extender recognises 2 dragon shrines as an ftk
+
+
+-Need to add in cases where BootSector is used/Baby Dragons are used

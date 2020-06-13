@@ -2,7 +2,7 @@ from sets import *
 
 
 # Verifies if hand can FTK successfully
-def ftk(hand, deck):
+def ftk(hand):
     win = False
     nibiru = False
     seyfert = in_hand(hand, "Starliege Seyfert")
@@ -13,6 +13,7 @@ def ftk(hand, deck):
     # Checks if drawn handtraps or called by the grave
     cbtg = in_hand(hand, "Called by the Grave") or in_hand(hand, "Sauravis, the Ancient and Ascended")
     open_ht = hts(hand)
+
     # FTK with One card
     for i in one_card_ftk:
         if i in hand:
@@ -45,10 +46,9 @@ def ftk(hand, deck):
                         hand.remove(i)
                         if i != j:
                             hand.remove(j)
-                        # if j == "Noctovision Dragon":
-                        #     hand = hand.append(deck.pop(0))
                         if j != "World Legacy Guardragon":
                             nibiru = extending(hand, seyfert)
+
                         break
 
     # FTK with Dragon Summonable Extender and another Extender
@@ -62,9 +62,6 @@ def ftk(hand, deck):
                         win = True
                         hand.remove(i)
                         hand.remove(j)
-                        if j == "Noctovision Dragon":
-                            top_card = deck[0]
-                            hand.append(top_card)
                         if j != "World Legacy Guardragon":
                             nibiru = extending(hand, seyfert)
                         break

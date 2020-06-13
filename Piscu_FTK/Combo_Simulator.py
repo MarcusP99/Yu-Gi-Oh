@@ -22,8 +22,8 @@ def combo(deck, n):
     opened_ht = 0
     for i in range(0, n):
         test_hand = draw(deck, 5)
-
-        results = ftk(test_hand)
+        shuffle(deck)
+        results = ftk(test_hand, deck)
         if results[0]:
             success_no_hts += 1
 
