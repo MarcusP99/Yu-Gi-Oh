@@ -17,7 +17,7 @@ def ftk(hand, deck):
             temp_hand = hand.copy()
             temp_hand, deck = noctovision_draw(temp_hand, deck)
             temp_hand.remove(i)
-            if i is "Black Metal Dragon":
+            if "Black Metal Dragon" in hand:
                 play_vs_nibiru = extend_metal(temp_hand)
             else:
                 play_vs_nibiru = extend_seyfert(temp_hand)
@@ -34,20 +34,21 @@ def ftk(hand, deck):
                     if ((i == j) or i == "Omni Dragon Brotaur") & (j == "White Rose Dragon"):
                         possible_win = False
 
+
                     if possible_win:
                         win = True
                         temp_hand = hand.copy()
                         temp_hand, deck = noctovision_draw(temp_hand, deck)
                         temp_hand.remove(i)
                         if (j == "Dragon Shrine") or (j == "World Legacy Guardragon"):
-                            remove_all(temp_hand, j)
+                            temp_hand = remove_all(temp_hand, j)
                         else:
                             temp_hand.remove(j)
 
                         if i == "Dragunity Phalanx":
-                            play_vs_nibiru = simple_extender(hand)
+                            play_vs_nibiru = simple_extender(temp_hand)
                         else:
-                            play_vs_nibiru = extend_others(hand)
+                            play_vs_nibiru = extend_others(temp_hand)
                         break
 
     # FTK with Dragon Summonable Extender and another Extender
@@ -56,20 +57,19 @@ def ftk(hand, deck):
             if i in hand:
                 temp_hand = hand.copy()
                 if i == "Dragon Shrine":
-                    remove_all(temp_hand, i)
+                    temp_hand = remove_all(temp_hand, i)
                 else:
                     temp_hand.remove(i)
                 for j in special_summons:
                     if j in temp_hand:
                         win = True
-                        temp_hand = hand.copy()
                         temp_hand, deck = noctovision_draw(temp_hand, deck)
 
                         if j == "Dragon Shrine":
-                            remove_all(temp_hand, j)
+                            temp_hand = remove_all(temp_hand, j)
                         else:
                             temp_hand.remove(j)
-                        play_vs_nibiru = extend_others(hand)
+                        play_vs_nibiru = extend_others(temp_hand)
                         break
 
     if (not win) or not play_vs_nibiru:
@@ -106,6 +106,12 @@ def ftk(hand, deck):
                 temp_hand, deck = noctovision_draw(temp_hand, deck)
                 play_vs_nibiru = simple_extender(temp_hand)
 
+    if (not win) or (not play_vs_nibiru):
+        if "One for One" in hand:
+            win = True
+            if "World Legacy Guardragon" in hand:
+                play_vs_nibiru = True
+
     # These hands cannot play through nibiru
 
     # Dragon Summonable Extender + Normal Summon of anything
@@ -122,12 +128,8 @@ def ftk(hand, deck):
             if any(i in normal_summons + ["Supreme King Dragon Darkwurm"] for i in hand):
                 win = True
 
-    if (not win) or (not play_vs_nibiru):
-        if "One for One" in hand:
-            win = True
-            if "World Legacy Guardragon" in hand:
-                play_vs_nibiru = True
-
+    if not win:
+        print (hand)
     win_nibiru = win & play_vs_nibiru
     win_cbtg = win & (cbtg or play_vs_nibiru)
     return [win, win_cbtg, win_nibiru, open_ht]

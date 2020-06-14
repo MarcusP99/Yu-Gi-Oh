@@ -16,7 +16,7 @@ special_bsector = ["Exploderokket Dragon", "Rokket Tracer"]
 # List of non dragon normal summons
 normal_summons = ["Effect Veiler", "Ash Blossom & Joyous Springs"]
 
-generate_dragon_specials = ["Quick Launch", "Dragon Shrine", "Foolish Burial", "Dragon Ravine"]
+generate_dragon_specials = ["Dragon Shrine", "Foolish Burial", "Dragon Ravine", "Quick Launch"]
 
 normal_one_card_ftk = ["Black Metal Dragon", "Starliege Seyfert"]
 
@@ -27,7 +27,7 @@ vs_nibiru = ["World Legacy Guardragon", "One for One"]
 lv4_dragons = ["White Dragon Wyverburster", "Rokket Tracer", "Starliege Seyfert", "Black Dragon Collapserpent",
                "White Rose Dragon", "Supreme King Dragon Darkwurm", "Chaos Space"]
 
-tracer_in_hand = generate_dragon_specials + ["Rokket Tracer"]
+tracer_in_hand = ["Dragon Shrine", "Foolish Burial", "Dragon Ravine", "Rokket Tracer", "Quick Launch"]
 
 lv4_dragon_extenders = ["Quick Launch", "Monster Reborn", "White Rose Dragon"]
 

@@ -1,7 +1,15 @@
 from sets import *
 
+
+#Rewrite Midcombo + Tracer
 def midcombo_tracer(hand):
-    return any(i in tracer_in_hand + ["Dragunity Divine Lance"] for i in hand)
+    tracer = False
+    for i in tracer_in_hand:
+        if i in hand:
+            tracer = True
+            hand.remove(i)
+            break
+    return hand, tracer
 
 
 def simple_extender(hand):
@@ -10,11 +18,11 @@ def simple_extender(hand):
 
 def tracer_with_extender(hand):
     extend = False
-    tracer = midcombo_tracer(hand)
+
+    hand, tracer = midcombo_tracer(hand)
     if not tracer:
         return False
-    if ("Absorouter Dragon" in hand) or any(i in mini_chaos for i in hand) or any(
-            i in lv4_dragon_extenders for i in hand):
+    if ("Absorouter Dragon" in hand) or any(i in mini_chaos for i in hand) or any(i in lv4_dragon_extenders for i in hand):
         extend = True
     return extend
 
@@ -28,14 +36,13 @@ def extend_metal(hand):
     if extend:
         return extend
     else:
-        extend = tracer_with_extender(hand)
+        extend = tracer_with_extender(hand.copy())
 
     if extend:
         return extend
     else:
         if "Starliege Seyfert" in hand:
-            extend = any(
-                i in lv4_dragons + lv4_dragon_extenders + tracer_in_hand + ["Dragunity Divine Lance"] for i in hand)
+            extend = any(i in lv4_dragons + lv4_dragon_extenders + tracer_in_hand + ["Dragunity Divine Lance"] for i in hand)
     return extend
 
 
@@ -44,12 +51,13 @@ def extend_seyfert(hand):
     if extend:
         return extend
     else:
-        extend = tracer_with_extender(hand)
+        extend = tracer_with_extender(hand.copy())
 
     if extend:
         return extend
     else:
-        extend = midcombo_tracer(hand) & any(i in lv4_dragons for i in hand)
+        hand, tracer = midcombo_tracer(hand)
+        extend = tracer & any(i in lv4_dragons for i in hand)
     return extend
 
 
@@ -58,10 +66,11 @@ def extend_cspace(hand):
     if extend:
         return extend
 
-    if midcombo_tracer(hand):
+    hand, tracer = midcombo_tracer(hand)
+    if tracer:
         extend = ("Absorouter Dragon" in hand) or any(i in lv4_dragon_extenders for i in hand)
 
-    if (not extend) & (midcombo_tracer(hand) or "Monster Reborn" in hand) & any(i in normal_summons for i in hand):
+    if (not extend) & (tracer or "Monster Reborn" in hand) & any(i in normal_summons for i in hand):
         extend = True
     return extend
 
