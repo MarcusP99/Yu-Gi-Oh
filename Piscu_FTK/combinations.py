@@ -1,4 +1,4 @@
-from sets import *
+from extend import *
 
 
 # Verifies if hand can FTK successfully
@@ -9,23 +9,18 @@ def ftk(hand, deck):
     black_garden = in_hand(hand, "Black Garden")
     unused_boot_sector = False
 
-
     # Checks if drawn handtraps or called by the grave
     cbtg = in_hand(hand, "Called by the Grave") or in_hand(hand, "Sauravis, the Ancient and Ascended")
     open_ht = hts(hand)
+
     # FTK with One card
-    for i in one_card_ftk:
+    for i in (one_card_ftk + cond_one_card_ftk):
         if i in hand:
             hand.remove(i)
             nibiru = extending(hand, seyfert)
             win = True
             break
 
-    '''if 'One For One' in hand or 'Chaos Space' in hand:
-        for j in range(0,len(monsters)):
-            if ("One For One" in hand or "Chaos Space" in hand) & (monsters[j] in hand):
-                win = True
-                break'''
 
     # FTK with an extender and a dragon normal summon
     if not win:
@@ -34,7 +29,7 @@ def ftk(hand, deck):
                 if (i in hand) & (j in hand):
                     win = True
 
-                    # Case where both cards are rokket tracer or white rose dragon
+                    # Case where both cards froms sets are not rokket tracer
                     if (i == j) & (i != "Rokket Tracer"):
                         win = False
                     # Case if White Rose Dragon & Brotaur in hand, then it is not ftk
@@ -63,8 +58,7 @@ def ftk(hand, deck):
                         hand.remove(i)
                         hand.remove(j)
                         if j == "Noctovision Dragon":
-                            top_card = deck[0]
-                            hand.append(top_card)
+                            hand, deck = noctodraw(hand, deck)
                         if j != "World Legacy Guardragon":
                             nibiru = extending(hand, seyfert)
                         break
@@ -101,7 +95,11 @@ def ftk(hand, deck):
                 nibiru = extending(hand, seyfert)
                 break
 
-    if not win & black_garden:
+    if not win:
+        if ("Absorouter Dragon" in hand) & any(i in tracer_in_hand for i in hand):
+            win = True
+
+    if (not win) & black_garden:
         if any(i in tracer_in_hand for i in hand):
             win = True
 
