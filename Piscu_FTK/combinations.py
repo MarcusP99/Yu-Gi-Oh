@@ -39,7 +39,7 @@ def ftk(hand, deck):
                         temp_hand = hand.copy()
                         temp_hand, deck = noctovision_draw(temp_hand, deck)
                         temp_hand.remove(i)
-                        if j == "Dragon Shrine":
+                        if (j == "Dragon Shrine") or (j == "World Legacy Guardragon"):
                             remove_all(temp_hand, j)
                         else:
                             temp_hand.remove(j)
@@ -87,7 +87,7 @@ def ftk(hand, deck):
                 temp_hand = hand.copy()
                 temp_hand.remove("Absorouter Dragon")
                 temp_hand.remove(i)
-                play_vs_nibiru = extend_others(hand)
+                play_vs_nibiru = extend_others(temp_hand)
 
     if ((not win) or not play_vs_nibiru) & in_hand(hand, "Black Garden"):
         for i in tracer_in_hand:

@@ -42,5 +42,4 @@ def noctovision_draw(hand, deck):
 
 
 def remove_all(hand, used):
-    return [card for card in hand if card != used
-            ]
+    return [card for card in hand if card != used]

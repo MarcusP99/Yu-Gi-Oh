@@ -1,26 +1,5 @@
 from sets import *
 
-
-# # If we already have FTK, we check if we can extend with any unused cards
-# def extending(hand, seyfert):
-#     extend = False
-#
-#     if "Quick Launch" in hand:
-#         hand.remove("Quick Launch")
-#         if "Quick Launch" in hand:
-#             extend = True
-#
-#     if seyfert & any(i in tracer_in_hand for i in hand) & any(i in lv4_dragons for i in hand):
-#         extend = True
-#
-#     if seyfert & ("Absorouter Dragon" in hand) & any(i in lv4_dragon_extenders for i in hand):
-#         extend = True
-#
-#     if ("Dragon Ravine" in hand or "Dragunity Divine Lance" in hand) & any(i in dragon_extenders for i in hand):
-#         extend = True
-#
-#     return extend
-
 def midcombo_tracer(hand):
     return any(i in tracer_in_hand + ["Dragunity Divine Lance"] for i in hand)
 
