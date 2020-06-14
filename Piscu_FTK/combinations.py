@@ -4,105 +4,130 @@ from extend import *
 # Verifies if hand can FTK successfully
 def ftk(hand, deck):
     win = False
-    nibiru = False
-    seyfert = in_hand(hand, "Starliege Seyfert")
-    black_garden = in_hand(hand, "Black Garden")
-    unused_boot_sector = False
+    play_vs_nibiru = False
 
     # Checks if drawn handtraps or called by the grave
     cbtg = in_hand(hand, "Called by the Grave") or in_hand(hand, "Sauravis, the Ancient and Ascended")
     open_ht = hts(hand)
 
     # FTK with One card
-    for i in (one_card_ftk + cond_one_card_ftk):
+    for i in normal_one_card_ftk:
         if i in hand:
-            hand.remove(i)
-            nibiru = extending(hand, seyfert)
             win = True
+            temp_hand = hand.copy()
+            temp_hand, deck = noctovision_draw(temp_hand, deck)
+            temp_hand.remove(i)
+            if i is "Black Metal Dragon":
+                play_vs_nibiru = extend_metal(temp_hand)
+            else:
+                play_vs_nibiru = extend_seyfert(temp_hand)
             break
 
-
     # FTK with an extender and a dragon normal summon
-    if not win:
+    if (not win) or not play_vs_nibiru:
         for i in normal_summon_dragons:
-            for j in special_summons:
+            for j in special_summons + ["Dragunity Divine Lance"]:
                 if (i in hand) & (j in hand):
-                    win = True
+                    possible_win = True
 
-                    # Case where both cards froms sets are not rokket tracer
-                    if (i == j) & (i != "Rokket Tracer"):
-                        win = False
                     # Case if White Rose Dragon & Brotaur in hand, then it is not ftk
-                    if (i == "Omni Dragon Brotaur") & (j == "White Rose Dragon"):
-                        win = False
+                    if ((i == j) or i == "Omni Dragon Brotaur") & (j == "White Rose Dragon"):
+                        possible_win = False
 
-                    if win:
-                        hand.remove(i)
-                        if i != j:
-                            hand.remove(j)
-                        # if j == "Noctovision Dragon":
-                        #     hand = hand.append(deck.pop(0))
-                        if j != "World Legacy Guardragon":
-                            nibiru = extending(hand, seyfert)
+                    if possible_win:
+                        win = True
+                        temp_hand = hand.copy()
+                        temp_hand, deck = noctovision_draw(temp_hand, deck)
+                        temp_hand.remove(i)
+                        if j == "Dragon Shrine":
+                            remove_all(temp_hand, j)
+                        else:
+                            temp_hand.remove(j)
+
+                        if i == "Dragunity Phalanx":
+                            play_vs_nibiru = simple_extender(hand)
+                        else:
+                            play_vs_nibiru = extend_others(hand)
                         break
 
     # FTK with Dragon Summonable Extender and another Extender
-    if not win:
+    if (not win) or not play_vs_nibiru:
         for i in generate_dragon_specials:
             if i in hand:
                 temp_hand = hand.copy()
-                temp_hand.remove(i)
+                if i == "Dragon Shrine":
+                    remove_all(temp_hand, i)
+                else:
+                    temp_hand.remove(i)
                 for j in special_summons:
                     if j in temp_hand:
                         win = True
-                        hand.remove(i)
-                        hand.remove(j)
-                        if j == "Noctovision Dragon":
-                            hand, deck = noctodraw(hand, deck)
-                        if j != "World Legacy Guardragon":
-                            nibiru = extending(hand, seyfert)
+                        temp_hand = hand.copy()
+                        temp_hand, deck = noctovision_draw(temp_hand, deck)
+
+                        if j == "Dragon Shrine":
+                            remove_all(temp_hand, j)
+                        else:
+                            temp_hand.remove(j)
+                        play_vs_nibiru = extend_others(hand)
                         break
 
+    if (not win) or not play_vs_nibiru:
+        if "Chaos Space" in hand:
+            win = True
+            temp_hand = hand.copy()
+            temp_hand, deck = noctovision_draw(temp_hand, deck)
+            temp_hand = remove_all(temp_hand, "Chaos Space")
+            play_vs_nibiru = extend_cspace(temp_hand)
+
+    if ((not win) or not play_vs_nibiru) & ("Absorouter Dragon" in hand):
+        for i in tracer_in_hand:
+            if i in hand:
+                win = True
+                temp_hand = hand.copy()
+                temp_hand.remove("Absorouter Dragon")
+                temp_hand.remove(i)
+                play_vs_nibiru = extend_others(hand)
+
+    if ((not win) or not play_vs_nibiru) & in_hand(hand, "Black Garden"):
+        for i in tracer_in_hand:
+            if i in hand:
+                win = True
+                temp_hand = hand.copy()
+                temp_hand.remove("Black Garden")
+                temp_hand.remove(i)
+                play_vs_nibiru = extend_others(temp_hand)
+
+    if ((not win) or not play_vs_nibiru) & (any(i in special_bsector for i in hand)):
+        for i in generate_dragon_specials + normal_summon_dragons + ["Noctovision Dragon"]:
+            if i in hand:
+                win = True
+                temp_hand = hand.copy()
+                temp_hand, deck = noctovision_draw(temp_hand, deck)
+                play_vs_nibiru = simple_extender(temp_hand)
+
+    # These hands cannot play through nibiru
+
     # Dragon Summonable Extender + Normal Summon of anything
-    if not win:
+    if (not win) or (not play_vs_nibiru):
         for i in generate_dragon_specials:
-            for j in normal_summons:
+            for j in normal_summons + ["Supreme King Dragon Darkwurm"]:
                 if (i in hand) & (j in hand):
                     win = True
-                    hand.remove(i)
-                    hand.remove(j)
-                    nibiru = extending(hand, seyfert)
                     break
 
-    # FTK with specific two cards
-    if not win:
-        for i in two_card_ftk:
-            if (i[0] in hand) & (i[1] in hand):
-                win = True
-                hand.remove(i[0])
-                hand.remove(i[1])
-                nibiru = extending(hand, seyfert)
-                break
-
     # FTK with specific three cards
-    if not win:
-        for i in three_card_ftk:
-            if (i[0] in hand) & (i[1] in hand) & (i[2] in hand):
+    if (not win) or (not play_vs_nibiru):
+        if ("Boot Sector Launch" in hand) & (any(i in special_bsector for i in hand)):
+            if any(i in normal_summons + ["Supreme King Dragon Darkwurm"] for i in hand):
                 win = True
-                hand.remove(i[0])
-                hand.remove(i[1])
-                hand.remove(i[2])
-                nibiru = extending(hand, seyfert)
-                break
 
-    if not win:
-        if ("Absorouter Dragon" in hand) & any(i in tracer_in_hand for i in hand):
+    if (not win) or (not play_vs_nibiru):
+        if "One for One" in hand:
             win = True
+            if "World Legacy Guardragon" in hand:
+                play_vs_nibiru = True
 
-    if (not win) & black_garden:
-        if any(i in tracer_in_hand for i in hand):
-            win = True
-
-    win_nibiru = win & nibiru
-    win_cbtg = win & (cbtg or nibiru)
+    win_nibiru = win & play_vs_nibiru
+    win_cbtg = win & (cbtg or play_vs_nibiru)
     return [win, win_cbtg, win_nibiru, open_ht]

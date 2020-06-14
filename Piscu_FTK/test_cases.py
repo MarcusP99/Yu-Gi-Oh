@@ -19,6 +19,8 @@ def two_card():
     assert ftk(["Rokket Tracer", "Black Garden"], [])[0]
     assert ftk(["Dragon Ravine", "Supreme King Dragon Darkwurm"], [])[0]
     assert ftk(["Dragon Ravine", "Absorouter Dragon"], [])[0]
+    assert ftk(["Dragon Ravine", "White Dragon Wyverburster"], [])[0]
+    assert ftk(["Dragon Ravine", "Effect Veiler"], [])[0]
     return True
 
 
@@ -39,23 +41,23 @@ def incorrect_ftks():
 
 # FTKs that we haven't recognised vs nibiru (we need to fix)
 def incorrect_nibiru_ftks():
-    #FTK then tuner + extender
-    assert not ftk(["Black Metal Dragon", "Rokket Tracer", "Dragon Shrine"], [])[2]
-    assert not ftk(["Black Metal Dragon", "Black Dragon Collapserpent", "Dragon Shrine"], [])[2]
-    assert not ftk(["Chaos Zone", "Effect Veiler", "Quick Launch"], [])[2]
-    assert not ftk(["Black Metal Dragon", "Rokket Tracer", "Exploderokket"], [])[2]
+    assert ftk(["Rokket Tracer", "Rokket Tracer", "World Legacy Guardragon"], [])[2]
     return True
 
 
 # Hands that can combo through nibiru
 def vs_nibiru():
+    assert ftk(["Chaos Space", "Effect Veiler", "Quick Launch"], [])[2]
+    assert ftk(["Black Metal Dragon", "Rokket Tracer", "Exploderokket"], [])[2]
+    assert ftk(["Black Metal Dragon", "Black Dragon Collapserpent", "Dragon Shrine"], [])[2]
+    assert ftk(["Black Metal Dragon", "Rokket Tracer", "Dragon Shrine"], [])[2]
     assert ftk(["Rokket Tracer", "Noctovision Dragon"], ["World Legacy Guardragon"])
     assert ftk(["Black Metal Dragon", "World Legacy Guardragon"], [])[2]
-    assert not ftk(["Black Metal Dragon", "Noctovision Dragon", "Rokket Tracer"], [])[2]
-    assert not ftk(["Black Metal Dragon", "Black Dragon Collapserpent"], [])[2] #This ftk is possible if you play linkurib
-    assert ftk(["Rokket Tracer", "Rokket Tracer", "World Legacy Guardragon"], [])[2]
+    assert ftk(["Black Metal Dragon", "Noctovision Dragon", "Rokket Tracer"], ["One for One"])[2]
+    assert not ftk(["Black Metal Dragon", "Black Dragon Collapserpent"], [])[2]
     assert ftk(["Starliege Seyfert", "Rokket Tracer", "Rokket Tracer"], [])[2]
     assert ftk(["Starliege Seyfert", "Absorouter Dragon", "Rokket Tracer"], [])[2]
+    assert ftk(["Chaos Space", "Monster Reborn", "Effect Veiler"], [])[0]
 
 
     return True
