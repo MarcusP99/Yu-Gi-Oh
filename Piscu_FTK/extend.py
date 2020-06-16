@@ -1,14 +1,18 @@
 from sets import *
 
 
-#Rewrite Midcombo + Tracer
+# Rewrite Midcombo + Tracer
 def midcombo_tracer(hand):
     tracer = False
-    for i in tracer_in_hand:
+    for i in lv4rokket_in_hand:
         if i in hand:
             tracer = True
-            hand.remove(i)
+            if (i == "Dragon Shrine") or (i == "Rokket Tracer"):
+                hand = remove_all(hand, i)
+            else:
+                hand.remove(i)
             break
+
     return hand, tracer
 
 
@@ -24,6 +28,9 @@ def tracer_with_extender(hand):
         return False
     if ("Absorouter Dragon" in hand) or any(i in mini_chaos for i in hand) or any(i in lv4_dragon_extenders for i in hand):
         extend = True
+    if not extend:
+        if any(i in ["Rokket Tracer", "Rokket Synchron"] for i in hand):
+            extend = True
     return extend
 
 
@@ -42,12 +49,14 @@ def extend_metal(hand):
         return extend
     else:
         if "Starliege Seyfert" in hand:
-            extend = any(i in lv4_dragons + lv4_dragon_extenders + tracer_in_hand + ["Dragunity Divine Lance"] for i in hand)
+            extend = any(
+                i in lv4_dragons + lv4_dragon_extenders + tracer_in_hand + ["Dragunity Divine Lance"] for i in hand)
     return extend
 
 
 def extend_seyfert(hand):
     extend = simple_extender(hand)
+
     if extend:
         return extend
     else:
@@ -56,8 +65,12 @@ def extend_seyfert(hand):
     if extend:
         return extend
     else:
-        hand, tracer = midcombo_tracer(hand)
-        extend = tracer & any(i in lv4_dragons for i in hand)
+        temp_hand = hand.copy()
+        for i in lv4_dragons:
+            if i in hand:
+                temp_hand.remove(i)
+                temp_hand, tracer = midcombo_tracer(temp_hand)
+                extend = tracer
     return extend
 
 
@@ -72,6 +85,10 @@ def extend_cspace(hand):
 
     if (not extend) & (tracer or "Monster Reborn" in hand) & any(i in normal_summons for i in hand):
         extend = True
+
+    if (not extend) & tracer & any(i in ["Rokket Tracer", "Rokket Synchron"] for i in hand):
+        extend = True
+
     return extend
 
 
@@ -83,25 +100,17 @@ def in_hand(hand, card):
 def hts(hand):
     return any(i in handtraps for i in hand)
 
-# def used_opt(hand, card):
-#     used = False
-#     for i in once_per_turn:
-#         if card in i[0]:
-#             if i[1]:
-#                 used = True
-#             else:
-#                 i[1] = True
-#     return used
-#
-#
-# def reset_opt(opt):
-#     return [["Dragon Shrine", False], ["World Legacy Guardragon", False], ["Noctovision Dragon", False]]
 
-#
-# # Remove cards in hands if they FTK
-# def checklists(list, hand):
-#     for i in list:
-#         for j in hand:
-#             if i == j:
-#                 return True
-#     return False
+def two_hts(hand):
+    open_one_ht = False
+    open_two_hts = False
+    for i in hand:
+        if i in handtraps:
+            open_one_ht = True
+            if i in opt_handtraps:
+                open_two_hts = hts(remove_all(hand.copy(), i))
+            else:
+                temp_hand = hand.copy()
+                temp_hand.remove(i)
+                open_two_hts = hts(temp_hand)
+    return open_one_ht, open_two_hts

@@ -8,7 +8,8 @@ def ftk(hand, deck):
 
     # Checks if drawn handtraps or called by the grave
     cbtg = in_hand(hand, "Called by the Grave") or in_hand(hand, "Sauravis, the Ancient and Ascended")
-    open_ht = hts(hand)
+    open_ht, open_two_hts = two_hts(hand)
+
 
     # FTK with One card
     for i in normal_one_card_ftk:
@@ -81,7 +82,7 @@ def ftk(hand, deck):
             play_vs_nibiru = extend_cspace(temp_hand)
 
     if ((not win) or not play_vs_nibiru) & ("Absorouter Dragon" in hand):
-        for i in tracer_in_hand:
+        for i in lv4rokket_in_hand:
             if i in hand:
                 win = True
                 temp_hand = hand.copy()
@@ -128,8 +129,7 @@ def ftk(hand, deck):
             if any(i in normal_summons + ["Supreme King Dragon Darkwurm"] for i in hand):
                 win = True
 
-    if not win:
-        print (hand)
     win_nibiru = win & play_vs_nibiru
-    win_cbtg = win & (cbtg or play_vs_nibiru)
-    return [win, win_cbtg, win_nibiru, open_ht]
+    open_ht = win & open_ht
+    open_two_hts = win & open_two_hts
+    return [win, open_two_hts, win_nibiru, open_ht]
