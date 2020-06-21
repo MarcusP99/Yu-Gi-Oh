@@ -17,18 +17,17 @@ def draw(deck, n):
 
 def combo(deck, n):
     success_no_hts = 0
-    success_1cbtg = 0
+    success_2hts= 0
     success_vs_nibiru = 0
     opened_ht = 0
     for i in range(0, n):
         test_hand = draw(deck, 5)
-
-        results = simulations(test_hand)
+        shuffle(deck)
+        results = ftk(test_hand, deck)
         if results[0]:
             success_no_hts += 1
-
         if results[1]:
-            success_1cbtg += 1
+            success_2hts += 1
 
         if results[2]:
             success_vs_nibiru += 1
@@ -37,14 +36,13 @@ def combo(deck, n):
             opened_ht += 1
 
     no_hts_ratio = round(success_no_hts / n * 100, 2)
-    one_cbtg_ratio = round(success_1cbtg / n * 100, 2)
+    two_hts_ratio = round(success_2hts / n * 100, 2)
     nibiru_ratio = round(success_vs_nibiru / n * 100, 2)
     open_ht_ratio = round(opened_ht / n * 100, 2)
-
     print("FTK Success Rate through no Handtraps: " + str(no_hts_ratio) + "%")
-    print("FTK Success Rate with called by the grave in hand: " + str(one_cbtg_ratio) + "%")
     print("FTK Success Rate through Nibiru: " + str(nibiru_ratio) + "%")
-    print("Hands with atleast 1 handtrap: " + str(open_ht_ratio) + "%\n")
+    print("FTK with atleast 1 Handtrap: " + str(open_ht_ratio) + "%")
+    print("FTK wit atleast 2 Handtraps: " + str(two_hts_ratio) + "%")
 
 
 def go_second(deck,n):
