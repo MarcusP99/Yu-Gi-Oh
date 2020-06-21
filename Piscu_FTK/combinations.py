@@ -6,10 +6,8 @@ def ftk(hand, deck):
     win = False
     play_vs_nibiru = False
 
-    # Checks if drawn handtraps or called by the grave
-    cbtg = in_hand(hand, "Called by the Grave") or in_hand(hand, "Sauravis, the Ancient and Ascended")
+    # Checks if drawn handtraps
     open_ht, open_two_hts = two_hts(hand)
-
 
     # FTK with One card
     for i in normal_one_card_ftk:

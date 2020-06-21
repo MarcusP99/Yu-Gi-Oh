@@ -1,7 +1,6 @@
 from sets import *
 
 
-# Rewrite Midcombo + Tracer
 def midcombo_tracer(hand):
     tracer = False
     for i in lv4rokket_in_hand:
