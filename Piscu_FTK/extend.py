@@ -11,7 +11,6 @@ def midcombo_tracer(hand):
             else:
                 hand.remove(i)
             break
-
     return hand, tracer
 
 
@@ -25,7 +24,8 @@ def tracer_with_extender(hand):
     hand, tracer = midcombo_tracer(hand)
     if not tracer:
         return False
-    if ("Absorouter Dragon" in hand) or any(i in mini_chaos for i in hand) or any(i in lv4_dragon_extenders for i in hand):
+    if ("Absorouter Dragon" in hand) or any(i in mini_chaos for i in hand) or any(
+            i in lv4_dragon_extenders for i in hand):
         extend = True
     if not extend:
         if any(i in ["Rokket Tracer", "Rokket Synchron"] for i in hand):
@@ -91,15 +91,17 @@ def extend_cspace(hand):
     return extend
 
 
-# Checks if we have drawn called by the grave
+# Checks if we have a specific card in hand
 def in_hand(hand, card):
     return card in hand
 
 
+# Checks if we have a handtrap in hand
 def hts(hand):
     return any(i in handtraps for i in hand)
 
 
+# Checks if we have 2 playable handtraps in hand
 def two_hts(hand):
     open_one_ht = False
     open_two_hts = False

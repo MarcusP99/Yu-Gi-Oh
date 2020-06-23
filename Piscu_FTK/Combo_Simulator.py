@@ -17,7 +17,7 @@ def draw(deck, n):
 
 def combo(deck, n):
     success_no_hts = 0
-    success_2hts= 0
+    success_2hts = 0
     success_vs_nibiru = 0
     opened_ht = 0
     for i in range(0, n):
@@ -42,9 +42,5 @@ def combo(deck, n):
     print("FTK Success Rate through no Handtraps: " + str(no_hts_ratio) + "%")
     print("FTK Success Rate through Nibiru: " + str(nibiru_ratio) + "%")
     print("FTK with atleast 1 Handtrap: " + str(open_ht_ratio) + "%")
-    print("FTK wit atleast 2 Handtraps: " + str(two_hts_ratio) + "%")
+    #print("FTK wit atleast 2 Handtraps: " + str(two_hts_ratio) + "%")
 
-
-def go_second(deck,n):
-    # Placeholder for now
-    return True

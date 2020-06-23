@@ -18,10 +18,9 @@ def main(deck_txt, n):
 # main("FTK_no_hts.txt", 50000)
 # main("FTK_56.txt", 50000)
 # main("FTK_58.txt", 50000)
-#main("FTK_60_w_3Nocto.txt", 200000)
-print("Rokket Synchron in Deck")
+# main("FTK_60_w_3Nocto.txt",200000)
 # main("FTK_60_w_3cbtg.txt", 100000)
 # main("FTK_57_no_cbtg.txt", 100000)
-main("FTK_60_no_cbtg.txt", 100000)
+main("Decklists/FTK_55.txt", 100000)
 
 

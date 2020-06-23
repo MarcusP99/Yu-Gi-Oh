@@ -2,51 +2,43 @@ FTK through nibiru
 Always assuming Chaos Space can discard a dark
 Not including Darkwum or Dragunity Phanlanx in Dragon Normal Summon
 Not including Chaos Space draw as we're discarding a card
-Need to include Darkwurm cases
+If Noctovision in hand, draw 1
 
 
 Assuming the card we used to get to darkwurm is different from the card we used to get to tracer
 If covered once, may not be covered again
-We have missed cases and included incorrect cases but both should be neglibable and the combined value would not affect playing through nibiru significantly
-
-
-If Nocto in hand, draw 1
+We have missed cases and may have included incorrect cases but both should be negligible percentage of hands and the
+combined value would not decrease the playing through nibiru percentage significantly, the percentage maybe higher.
 
 #FTK + WL is incorrect in the cases where we do not have a way to get to Tracer or RedMD or any other extender. This should not affect the nibiru percentage too much, so didnt feel it was worth changing
-Every FTK + [World Legacy Guardragon, One for one] (
+Every FTK + [World Legacy Guardragon, One for one] (Need something else if you don't have access to Tracer or REDMD)
 
 Black Metal + [Absorouter] + [a way to tracer, lance]
 Black Metal + Baby Chaos + [A way to tracer, lance, monster reborn]
 Black Metal + ["Quick Launch", "Monster Reborn", "White Rose Dragon"] + [A way to tracer, lance]
-
 Black Metal + Seyfert + [Reborn, Lv4 Dragon, divine lance, chaos babys, quick launch]
 
-Seyfert + WL (I struggled)
+Seyfert + WL (With something else)
 Seyfert + [Absorouter] + [a way to tracer, lance]
 Seyfert + Baby Chaos + [A way to tracer, lance, monster reborn]
 Seyfert + ["Quick Launch", "Monster Reborn", "White Rose Dragon"] + [A way to tracer, lance]
-
 Seyfert + Lv4 in hand + [A way to tracer, lance, monster reborn]
 
-# Normal_extender (these do not beat nibiru, just defining set) and not including boot sector as extender as we hold till after nibiru if we can
+# These do not beat nibiru, just defining set "Normal_extender" (and not including boot sector as extender as we hold till after nibiru if we can)
 Dragon Normal Summon + ["Noctovision Dragon", "Monster Reborn", "Quick Launch", "Red-Eyes Darkness Metal Dragon"]
 Dragon Normal Summon(not omni or darkwurm) + ["White Rose Dragon"]
 Dragon Normal Summon + [a way to send darkwurm to grave]
 
-
-Normal_extender + [Absorouter] + [a way to tracer, lance]
 Normal_extender + Baby Chaos + [A way to tracer, lance, monster reborn]
 Normal_extender + ["Quick Launch", "Monster Reborn", "White Rose Dragon"] + [A way to tracer, lance]
 
 
-#Extender and Extender
-[a way to darkwurm or quicklaunch] + ["Noctovision Dragon", "Quick Launch"]
-
+#Extender and Extender - [a way to darkwurm or quicklaunch] + ["Noctovision Dragon", "Quick Launch"] = extender_twice
 extender_twice + [Absorouter] + [a way to tracer, lance]
 extender_twice + Baby Chaos + [A way to tracer, lance, monster reborn]
 extender_twice + ["Quick Launch", "Monster Reborn", "White Rose Dragon"] + [A way to tracer, lance]
 
-Chaos Zone + WL (I struggled)
+Chaos Zone + WL (With something else)
 Chaos Zone + [Absorouter] + [a way to tracer, lance]
 Chaos Zone + [A way to tracer, lance] + ["Quick Launch", "Monster Reborn", "White Rose Dragon"]
 Chaos Zone + [Veiler, Ash] + [A way to tracer, lance, monster reborn]
