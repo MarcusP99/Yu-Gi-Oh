@@ -12,7 +12,7 @@ def draw(deck, n):
     shuffle(test_deck)
     for i in range(n):
         hand.append(test_deck.pop(0))
-    return hand
+    return hand, test_deck
 
 
 def combo(deck, n):
@@ -21,9 +21,8 @@ def combo(deck, n):
     success_vs_nibiru = 0
     opened_ht = 0
     for i in range(0, n):
-        test_hand = draw(deck, 5)
-        shuffle(deck)
-        results = ftk(test_hand, deck)
+        test_hand, test_deck = draw(deck, 5)
+        results = ftk(test_hand, test_deck)
         if results[0]:
             success_no_hts += 1
         if results[1]:
