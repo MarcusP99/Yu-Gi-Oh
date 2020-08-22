@@ -1,6 +1,7 @@
 from sets import *
 
 
+# If we have tracer in hand in the middle of combo
 def midcombo_tracer(hand):
     tracer = False
     for i in lv4rokket_in_hand:
@@ -11,21 +12,23 @@ def midcombo_tracer(hand):
             else:
                 hand.remove(i)
             break
-
     return hand, tracer
 
 
+# Assuming WL Guardragon or One of One plays through Nibiru
 def simple_extender(hand):
     return any(i in vs_nibiru for i in hand)
 
 
+# If we have tracer in hand and another extender
 def tracer_with_extender(hand):
     extend = False
 
     hand, tracer = midcombo_tracer(hand)
     if not tracer:
         return False
-    if ("Absorouter Dragon" in hand) or any(i in mini_chaos for i in hand) or any(i in lv4_dragon_extenders for i in hand):
+    if ("Absorouter Dragon" in hand) or any(i in mini_chaos for i in hand) or any(
+            i in lv4_dragon_extenders for i in hand):
         extend = True
     if not extend:
         if any(i in ["Rokket Tracer", "Rokket Synchron"] for i in hand):
@@ -37,6 +40,7 @@ def extend_others(hand):
     return simple_extender(hand) or tracer_with_extender(hand)
 
 
+# Specific combination of cards to play through nibiru if we have Black Metal
 def extend_metal(hand):
     extend = simple_extender(hand)
     if extend:
@@ -53,6 +57,7 @@ def extend_metal(hand):
     return extend
 
 
+# Specific combination of cards to play through nibiru if we have Seyfert
 def extend_seyfert(hand):
     extend = simple_extender(hand)
 
@@ -73,6 +78,7 @@ def extend_seyfert(hand):
     return extend
 
 
+# Specific combination of cards to play through nibiru if we have Chaos Space
 def extend_cspace(hand):
     extend = simple_extender(hand)
     if extend:
@@ -91,15 +97,17 @@ def extend_cspace(hand):
     return extend
 
 
-# Checks if we have drawn called by the grave
+# Checks if we have a specific card in hand
 def in_hand(hand, card):
     return card in hand
 
 
+# Checks if we have a handtrap in hand
 def hts(hand):
     return any(i in handtraps for i in hand)
 
 
+# Checks if we have 2 playable handtraps in hand
 def two_hts(hand):
     open_one_ht = False
     open_two_hts = False
